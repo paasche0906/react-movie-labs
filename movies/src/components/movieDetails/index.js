@@ -59,6 +59,20 @@ const MovieDetails = ({ movie }) => {
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
             </Paper>
+            <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', alignItems: 'center' }}>
+                    <li style={{ marginRight: '8px' }}>
+                        <Chip label="Production Countries" sx={{ ...chip }} color="primary" />
+                    </li>
+                    {movie.production_countries.map((country, index) => (
+                        <li key={index} style={{ marginRight: '8px' }}>
+                            <Chip label={country.name} sx={{ ...chip }} />
+                        </li>
+                    ))}
+                </ul>
+            </Paper>
+
+
             <Fab
                 color="secondary"
                 variant="extended"
