@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import Spinner from '../spinner'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,13 +13,20 @@ import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
 
 export default function MovieReviews({ movie }) {
-    const [reviews, setReviews] = useState([]);
+    const { data, error, isLoading, isError } = useQuery(
+        ["reviews", { id: movie.id }],
+        getMovieReviews
+    );
 
-    useEffect(() => {
-        getMovieReviews(movie.id).then((reviews) => {
-            setReviews(reviews);
-        });
-    }, []);
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    if (isError) {
+        return <h1>{error.message}</h1>;
+    }
+
+    const reviews = data.results;
 
     return (
         <TableContainer component={Paper}>
