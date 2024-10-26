@@ -22,7 +22,7 @@ const UpcomingMoviesPage = (props) => {
         <PageTemplate
             title="Upcoming Movies"
             movies={upcomingMovies}
-            action={() => {}}
+            action={() => { }}
         />
     );
 };
