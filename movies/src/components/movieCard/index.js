@@ -9,13 +9,11 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid2";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import { MoviesContext } from "../../contexts/moviesContext";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 
 export default function MovieCard({ movie, action }) {
@@ -75,10 +73,6 @@ export default function MovieCard({ movie, action }) {
       <CardActions disableSpacing>
 
         {action(movie)}
-
-        <CardActions>
-          {<PlaylistAddIcon />}
-        </CardActions>
 
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
