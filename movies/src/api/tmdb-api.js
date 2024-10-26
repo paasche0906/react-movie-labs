@@ -85,3 +85,10 @@ export const getMovieReviews = ({ queryKey }) => {
             throw error
         });
 };
+
+export const getUpcomingMovies = async () => {
+    return fetch(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=31af661a7adcb32ae044337494e0f685&language=en-US&page=1`
+    ).then(res => res.json());
+};
+
