@@ -92,3 +92,10 @@ export const getUpcomingMovies = async () => {
     ).then(res => res.json());
 };
 
+export const getTrendingMoviesToday = async () => {
+    return fetch(
+        'https://api.themoviedb.org/3/trending/movie/day?api_key=31af661a7adcb32ae044337494e0f685&language=en-US',
+    ).then(res => res.json());
+};
+
+
