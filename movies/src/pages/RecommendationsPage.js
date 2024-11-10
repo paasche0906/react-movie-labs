@@ -7,7 +7,7 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
 
 const RecommendationsPage = () => {
-    const { id } = useParams(); // 获取电影 ID 参数
+    const { id } = useParams(); 
     const { data, error, isLoading, isError } = useQuery(['recommendations', id], () => getMovieRecommendations(id));
 
     if (isLoading) {
@@ -15,7 +15,7 @@ const RecommendationsPage = () => {
     }
 
     if (isError) {
-        return <h1>{error.message}</h1>;
+        return <h1>{error.message}</h1>; 
     }
 
     const movies = data.results;
