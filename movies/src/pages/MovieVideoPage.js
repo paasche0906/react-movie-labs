@@ -20,7 +20,7 @@ const MovieVideoPage = () => {
 
     return (
         <div>
-            <h2>Movie Videos</h2>
+            <h2>Welcome to Movie Videos</h2>
             <div>
                 {videos.length > 0 ? (
                     videos.map(video => (
