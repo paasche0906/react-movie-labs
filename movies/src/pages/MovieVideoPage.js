@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getVideos } from "../api/tmdb-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
+import '../css/MovieVideoPage.css'; 
 
 const MovieVideoPage = () => {
     const { id } = useParams();
@@ -19,16 +20,17 @@ const MovieVideoPage = () => {
     const videos = data.results;
 
     return (
-        <div>
-            <h2>Welcome to Movie Videos</h2>
-            <div>
+        <div className="video-page-container">
+            <h2 className="video-page-title">Movie Videos</h2>
+            <div className="video-grid">
                 {videos.length > 0 ? (
                     videos.map(video => (
-                        <div key={video.id}>
-                            <h3>{video.name}</h3>
+                        <div key={video.id} className="video-card">
+                            <h3 className="video-title">{video.name}</h3>
                             <iframe
+                                className="video-iframe"
                                 title={video.name}
-                                width="560"
+                                width="100%"
                                 height="315"
                                 src={`https://www.youtube.com/embed/${video.key}`}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -37,7 +39,7 @@ const MovieVideoPage = () => {
                         </div>
                     ))
                 ) : (
-                    <p>There are no videos available for the current film.</p>
+                    <p className="no-videos-message">There are no videos available for the current film.</p>
                 )}
             </div>
         </div>
