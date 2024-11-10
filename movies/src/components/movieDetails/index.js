@@ -57,11 +57,11 @@ const MovieDetails = ({ movie }) => {
                     icon={<StarRate />}
                     label={`${movie.vote_average} (${movie.vote_count}`}
                 />
+
                 <Chip
                     icon={<LanguageIcon />}
                     label={`Original Language: ${movie.original_language}`}
-                />
-                <Chip label={`Released: ${movie.release_date}`} />
+                />         <Chip label={`Released: ${movie.release_date}`} />
             </Paper>
             <Paper sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', alignItems: 'center' }}>

@@ -11,7 +11,13 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import UpcomingMoviesPage from './pages/upcomingMoviesPage';
-import TrendingTodayPage from './pages/trendingTodayPage';
+import TrendingTodayPage from "./pages/TrendingTodayPage";
+import RecommendationsPage from "./pages/RecommendationsPage";
+import PopularMoviesPage from "./pages/PopularMoviesPage";
+import TopRatedMovies from "./pages/TopRatedMovies";
+import SimilarMoviesPage from "./pages/SimilarMoviesPage";
+import MovieVideoPage from "./pages/MovieVideoPage";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,7 +43,12 @@ const App = () => {
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/trending/today" element={<TrendingTodayPage/>}/>
+            <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
+            <Route path="/movie/:id/recommendations" element={<RecommendationsPage />} />
+            <Route path="/movies/popular" element={<PopularMoviesPage />} />
+            <Route path="/movies/top_rated" element={<TopRatedMovies />}/>
+            <Route path="/movie/:id/similar" element={< SimilarMoviesPage/>}/>
+            <Route path="/movie/:id/videos" element={< MovieVideoPage/>}/>
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>

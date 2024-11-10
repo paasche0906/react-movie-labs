@@ -5,6 +5,7 @@ import PageTemplate from "../components/templateMoviePage";
 import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
+import { Link } from "react-router-dom";
 // import useMovie from "../hooks/useMovie";
 
 const MoviePage = (props) => {
@@ -28,6 +29,15 @@ const MoviePage = (props) => {
                 <>
                     <PageTemplate movie={movie}>
                         <MovieDetails movie={movie} />
+                        <Link to={`/movie/${id}/recommendations`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#3f51b5' }}>
+                            View Recommendations
+                        </Link>
+                        <Link to={`/movie/${id}/similar`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#388e3c', textDecoration: 'underline' }}>
+                            View Similar Movies
+                        </Link>
+                        <Link to={`/movie/${id}/videos`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#213552', textDecoration: 'underline' }}>
+                            View Videos
+                        </Link>
                     </PageTemplate>
                 </>
             ) : (
