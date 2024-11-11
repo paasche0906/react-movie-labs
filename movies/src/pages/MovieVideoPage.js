@@ -1,12 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getVideos } from "../api/tmdb-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
-import '../css/MovieVideoPage.css'; 
+import '../css/MovieVideoPage.css';
 
 const MovieVideoPage = () => {
     const { id } = useParams();
+    const navigate = useNavigate(); // 使用 useNavigate 来实现前进和后退功能
     const { data, error, isLoading, isError } = useQuery(['movieVideos', id], () => getVideos(id));
 
     if (isLoading) {
@@ -21,7 +22,17 @@ const MovieVideoPage = () => {
 
     return (
         <div className="video-page-container">
-            <h2 className="video-page-title">Movie Videos</h2>
+            {/* 添加前进和后退箭头 */}
+            <div className="navigation-arrows">
+                <button onClick={() => navigate(-1)} className="arrow-button">
+                    &#8592; {/* 左箭头 */}
+                </button>
+                <h2 className="video-page-title">Movie Videos</h2>
+                <button onClick={() => navigate(1)} className="arrow-button">
+                    &#8594; {/* 右箭头 */}
+                </button>
+            </div>
+
             <div className="video-grid">
                 {videos.length > 0 ? (
                     videos.map(video => (
