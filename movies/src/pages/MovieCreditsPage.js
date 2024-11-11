@@ -1,4 +1,3 @@
-// MovieCreditsPage.js
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCredits } from "../api/tmdb-api";
@@ -8,7 +7,7 @@ import '../css/MovieCreditsPage.css';
 
 const MovieCreditsPage = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // 使用 useNavigate 来实现跳转
+    const navigate = useNavigate(); 
     const { data, error, isLoading, isError } = useQuery(['credits', id], () => getCredits(id));
 
     if (isLoading) {
@@ -27,20 +26,20 @@ const MovieCreditsPage = () => {
                 <button onClick={() => navigate(-1)} className="arrow-button">
                     &#8592;
                 </button>
-                <h2 className="credits-page-title">全体演员与剧组</h2>
+                <h2 className="credits-page-title">The Entire Cast and Crew</h2>
                 <button onClick={() => navigate(1)} className="arrow-button">
                     &#8594;
                 </button>
             </div>
 
             <div className="credits-section">
-                <h3>演员列表</h3>
+                <h3>Cast List</h3>
                 <div className="credits-grid">
                     {cast.map(member => (
                         <div
                             key={member.cast_id}
                             className="credits-card"
-                            onClick={() => navigate(`/person/${member.id}`)} // 点击跳转
+                            onClick={() => navigate(`/person/${member.id}`)} 
                             style={{ cursor: "pointer" }}
                         >
                             <img
@@ -58,7 +57,7 @@ const MovieCreditsPage = () => {
             </div>
 
             <div className="credits-section">
-                <h3>制作团队</h3>
+                <h3>Production Team</h3>
                 <div className="credits-grid">
                     {crew.map(member => (
                         <div key={member.credit_id} className="credits-card">
@@ -69,7 +68,7 @@ const MovieCreditsPage = () => {
                             />
                             <div className="credits-info">
                                 <h4>{member.name}</h4>
-                                <p>职位: {member.job}</p>
+                                <p>Position: {member.job}</p>
                             </div>
                         </div>
                     ))}

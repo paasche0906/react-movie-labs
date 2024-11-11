@@ -1,8 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getPeopleDetails, getMovieCredits } from '../api/tmdb-api';
+import { getPeopleDetails, getMovieCredits, getExternalId } from '../api/tmdb-api';
 import Spinner from '../components/spinner';
+import InstagramIcon from '../images/ins icon.png';
+import TikTokIcon from '../images/tiktok icon.png';
+
 
 const PersonDetailsPage = () => {
     const { personId } = useParams();
@@ -14,6 +17,11 @@ const PersonDetailsPage = () => {
     const { data: movieCredits, error: movieError, isLoading: movieLoading } = useQuery(
         ['movieCredits', personId],
         () => getMovieCredits(personId)
+    );
+
+    const { data: externalIds } = useQuery(
+        ['externalIds', personId],
+        () => getExternalId(personId)
     );
 
     if (detailsLoading || movieLoading) {
@@ -33,6 +41,19 @@ const PersonDetailsPage = () => {
 
             <div className="personal-info">
                 <h2>Personal Info</h2>
+                <div className="social-media-links" style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '10px' }}>
+                    {externalIds?.instagram_id && (
+                        <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target="_blank" rel="noopener noreferrer">
+                            <img src={InstagramIcon} alt="Instagram" style={{ width: '30px', height: '30px' }} />
+                        </a>
+                    )}
+                    {externalIds?.tiktok_id && (
+                        <a href={`https://www.tiktok.com/@${externalIds.tiktok_id}`} target="_blank" rel="noopener noreferrer">
+                            <img src={TikTokIcon} alt="TikTok" style={{ width: '30px', height: '30px' }} />
+                        </a>
+                    )}
+                </div>
+
                 <p><strong>Known For: </strong>{personDetails.known_for_department}</p>
                 <p><strong>Gender: </strong>{personDetails.gender === 1 ? "Female" : "Male"}</p>
                 <p><strong>Birthday: </strong>{personDetails.birthday} ({getAge(personDetails.birthday)} years old)</p>
@@ -61,7 +82,7 @@ const PersonDetailsPage = () => {
             <ul>
                 {movieCredits.cast.map((movie) => (
                     <li key={movie.id}>
-                        {movie.release_date?.split('-')[0]} - 
+                        {movie.release_date?.split('-')[0]} -
                         <Link to={`/movies/${movie.id}`}>{movie.title}</Link> as {movie.character}
                     </li>
                 ))}
