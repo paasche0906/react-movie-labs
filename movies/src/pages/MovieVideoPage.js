@@ -7,7 +7,7 @@ import '../css/MovieVideoPage.css';
 
 const MovieVideoPage = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // 使用 useNavigate 来实现前进和后退功能
+    const navigate = useNavigate();
     const { data, error, isLoading, isError } = useQuery(['movieVideos', id], () => getVideos(id));
 
     if (isLoading) {
@@ -22,14 +22,13 @@ const MovieVideoPage = () => {
 
     return (
         <div className="video-page-container">
-            {/* 添加前进和后退箭头 */}
             <div className="navigation-arrows">
                 <button onClick={() => navigate(-1)} className="arrow-button">
-                    &#8592; {/* 左箭头 */}
+                    &#8592; 
                 </button>
                 <h2 className="video-page-title">Movie Videos</h2>
                 <button onClick={() => navigate(1)} className="arrow-button">
-                    &#8594; {/* 右箭头 */}
+                    &#8594; 
                 </button>
             </div>
 
