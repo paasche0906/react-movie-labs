@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getPeopleDetails, getMovieCredits } from '../api/tmdb-api';
 import Spinner from '../components/spinner';
@@ -28,28 +28,58 @@ const PersonDetailsPage = () => {
         <div className="person-details-container">
             <h1>{personDetails.name}</h1>
             <img src={`https://image.tmdb.org/t/p/w300${personDetails.profile_path}`} alt={personDetails.name} />
-            <p>{personDetails.biography || "暂无简介"}</p>
+            <h2>Biography</h2>
+            <p>{personDetails.biography || "No profile available."}</p>
 
-            <h2>代表作品</h2>
+            <div className="personal-info">
+                <h2>Personal Info</h2>
+                <p><strong>Known For: </strong>{personDetails.known_for_department}</p>
+                <p><strong>Gender: </strong>{personDetails.gender === 1 ? "Female" : "Male"}</p>
+                <p><strong>Birthday: </strong>{personDetails.birthday} ({getAge(personDetails.birthday)} years old)</p>
+                <p><strong>Place of Birth: </strong>{personDetails.place_of_birth || "N/A"}</p>
+                <p><strong>Also Known As: </strong></p>
+                <ul>
+                    {personDetails.also_known_as.map((alias, index) => (
+                        <li key={index}>{alias}</li>
+                    ))}
+                </ul>
+            </div>
+
+            <h2>Known For</h2>
             <div>
                 {movieCredits.cast.slice(0, 5).map((movie) => (
                     <div key={movie.id}>
-                        <h3>{movie.title}</h3>
-                        <p>角色: {movie.character}</p>
+                        <h3>
+                            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                        </h3>
+                        <p>Role: {movie.character}</p>
                     </div>
                 ))}
             </div>
 
-            <h2>电影作品</h2>
+            <h2>Acting</h2>
             <ul>
                 {movieCredits.cast.map((movie) => (
                     <li key={movie.id}>
-                        {movie.release_date?.split('-')[0]} - {movie.title} as {movie.character}
+                        {movie.release_date?.split('-')[0]} - 
+                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link> as {movie.character}
                     </li>
                 ))}
             </ul>
         </div>
     );
+};
+
+const getAge = (birthDate) => {
+    if (!birthDate) return "N/A";
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
 };
 
 export default PersonDetailsPage;
