@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
+import SortMoviesCard from "../sortMoviesCard"; 
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
@@ -12,7 +13,7 @@ function MovieListPageTemplate({ movies, title, action }) {
     const [releaseDateFrom, setReleaseDateFrom] = useState("");
     const [releaseDateTo, setReleaseDateTo] = useState("");
     const [language, setLanguage] = useState("");
-    
+    const [sortCriteria, setSortCriteria] = useState("popularityDesc");
 
     const genreId = Number(genreFilter);
 
@@ -39,7 +40,28 @@ function MovieListPageTemplate({ movies, title, action }) {
             return language === "" ? true : m.original_language === language;
         });
 
-    console.log("Filtered Film List.", displayedMovies);
+    displayedMovies = displayedMovies.sort((a, b) => {
+        switch (sortCriteria) {
+            case "popularityAsc":
+                return a.popularity - b.popularity;
+            case "popularityDesc":
+                return b.popularity - a.popularity;
+            case "ratingAsc":
+                return a.vote_average - b.vote_average;
+            case "ratingDesc":
+                return b.vote_average - a.vote_average;
+            case "releaseDateAsc":
+                return new Date(a.release_date) - new Date(b.release_date);
+            case "releaseDateDesc":
+                return new Date(b.release_date) - new Date(a.release_date);
+            case "titleAsc":
+                return a.title.localeCompare(b.title);
+            case "titleDesc":
+                return b.title.localeCompare(a.title);
+            default:
+                return 0;
+        }
+    });
 
     const handleChange = (type, value) => {
         switch (type) {
@@ -69,6 +91,10 @@ function MovieListPageTemplate({ movies, title, action }) {
         }
     };
 
+    const handleSortChange = (value) => {
+        setSortCriteria(value);
+    };
+
     return (
         <Grid container>
             <Grid size={12}>
@@ -90,6 +116,7 @@ function MovieListPageTemplate({ movies, title, action }) {
                         releaseDateTo={releaseDateTo}
                         language={language}
                     />
+                    <SortMoviesCard onSortChange={handleSortChange} />
                 </Grid>
                 <MovieList action={action} movies={displayedMovies}></MovieList>
             </Grid>

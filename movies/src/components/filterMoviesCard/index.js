@@ -118,6 +118,7 @@ export default function FilterMoviesCard(props) {
                     sx={{ ...formControl }}
                 />
 
+
                 <TextField
                     id="release-date-from"
                     label="From"
