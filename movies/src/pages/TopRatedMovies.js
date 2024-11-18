@@ -4,7 +4,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
-import MovieItem from "../components/cardIcons/addToMustWatchList";
+import MovieItem from "../components/cardIcons/addToWatchlist";
 const TopRatedMovies = () => {
 
     const { data, error, isLoading, isError } = useQuery('topRatedMovies', getTopRatedMovies);
