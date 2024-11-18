@@ -1,9 +1,10 @@
 import React from "react";
-import { getUpcomingMovies } from "../api/tmdb-api";  // Import the new API function
+import { getUpcomingMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import MovieItem from "../components/cardIcons/addToMustWatchList";
+import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 
 const UpcomingMoviesPage = () => {
 
@@ -23,8 +24,13 @@ const UpcomingMoviesPage = () => {
         <PageTemplate
             title="Upcoming Movies"
             movies={upcomingMovies}
-            action={(movie) => { 
-                return <MovieItem movie={movie} />
+            action={(movie) => {
+                return (
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <AddToFavoritesIcon movie={movie} />
+                        <MovieItem movie={movie} />
+                    </div>
+                );
             }}
         />
     );

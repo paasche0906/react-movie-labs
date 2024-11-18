@@ -4,6 +4,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import MovieItem from "../components/cardIcons/addToMustWatchList";
 
 const PopularMoviesPage = () => {
 
@@ -27,7 +28,12 @@ const PopularMoviesPage = () => {
             title="Popular Movies"
             movies={movies}
             action={(movie) => {
-                return <AddToFavoritesIcon movie={movie} />
+                return (
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <AddToFavoritesIcon movie={movie} />
+                        <MovieItem movie={movie} />
+                    </div>
+                );
             }}
         />
     );
