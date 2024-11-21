@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
-import SortMoviesCard from "../sortMoviesCard"; 
+import SortMoviesCard from "../sortMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid2";
 
@@ -106,6 +106,7 @@ function MovieListPageTemplate({ movies, title, action }) {
                     size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
                     sx={{ padding: "20px" }}
                 >
+                    <SortMoviesCard onSortChange={handleSortChange} />
                     <FilterCard
                         onUserInput={handleChange}
                         titleFilter={nameFilter}
@@ -116,7 +117,6 @@ function MovieListPageTemplate({ movies, title, action }) {
                         releaseDateTo={releaseDateTo}
                         language={language}
                     />
-                    <SortMoviesCard onSortChange={handleSortChange} />
                 </Grid>
                 <MovieList action={action} movies={displayedMovies}></MovieList>
             </Grid>
