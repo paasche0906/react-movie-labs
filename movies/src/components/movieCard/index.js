@@ -25,6 +25,7 @@ export default function MovieCard({ movie, action }) {
     movie.favorite = false
   }
 
+  // eslint-disable-next-line no-unused-vars
   const handleAddToFavorite = (e) => {
     e.preventDefault();
     addToFavorites(movie);
