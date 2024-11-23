@@ -1,23 +1,21 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { getGenres } from '../../api/tmdb-api';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Slider from '@mui/material/Slider';
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    TextField,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    Slider,
+    Stack,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Spinner from '../spinner';
-
-const formControl = {
-    margin: 1,
-    minWidth: '90%',
-    backgroundColor: 'rgb(255, 255, 255)',
-};
 
 export default function FilterMoviesCard(props) {
     const { data, error, isLoading, isError } = useQuery('genres', getGenres);
@@ -53,120 +51,126 @@ export default function FilterMoviesCard(props) {
     };
 
     return (
-        <Card
-            sx={{
-                backgroundColor: 'rgb(204, 204, 0)',
-            }}
-            variant="outlined"
-        >
-            <CardContent>
-                <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
-                    Filter the movies.
-                </Typography>
+        <Accordion>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="filter-content"
+                id="filter-header"
+            >
+                <Typography variant="h6">Filters</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Stack spacing={2}>
+                    {/* Filter by Keywords */}
+                    <FormControl fullWidth variant="filled" size="small">
+                        <TextField
+                            id="filled-search"
+                            label="Filter by keywords"
+                            type="search"
+                            variant="filled"
+                            value={props.titleFilter}
+                            onChange={handleTextChange}
+                        />
+                    </FormControl>
 
-                <TextField
-                    sx={{ ...formControl }}
-                    id="filled-search"
-                    label="Filter by keywords:"
-                    type="search"
-                    variant="filled"
-                    value={props.titleFilter}
-                    onChange={handleTextChange}
-                />
+                    {/* Filter by Genre */}
+                    <FormControl fullWidth variant="outlined" size="small">
+                        <InputLabel id="genre-label">Genre</InputLabel>
+                        <Select
+                            labelId="genre-label"
+                            id="genre-select"
+                            value={props.genreFilter}
+                            onChange={handleGenreChange}
+                            label="Genre"
+                        >
+                            {genres.map((genre) => (
+                                <MenuItem key={genre.id} value={genre.id}>
+                                    {genre.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
 
-                <FormControl sx={{ ...formControl }}>
-                    <InputLabel id="genre-label">Genre</InputLabel>
-                    <Select
-                        labelId="genre-label"
-                        id="genre-select"
-                        defaultValue=""
-                        value={props.genreFilter}
-                        onChange={handleGenreChange}
-                    >
-                        {genres.map((genre) => (
-                            <MenuItem key={genre.id} value={genre.id}>
-                                {genre.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                    {/* User Score Slider */}
+                    <Typography variant="body1" gutterBottom>
+                        User Score
+                    </Typography>
+                    <Slider
+                        value={props.userScore}
+                        onChange={(e, newValue) => handleSliderChange(e, newValue, 'userScore')}
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        valueLabelDisplay="auto"
+                    />
 
-                <Typography variant="body1" gutterBottom>
-                    User Score
-                </Typography>
-                <Slider
-                    value={props.userScore}
-                    onChange={(e, newValue) => handleSliderChange(e, newValue, 'userScore')}
-                    min={0}
-                    max={10}
-                    step={0.5}
-                    valueLabelDisplay="auto"
-                    sx={{ ...formControl }}
-                />
+                    {/* Minimum User Votes Slider */}
+                    <Typography variant="body1" gutterBottom>
+                        Minimum User Votes
+                    </Typography>
+                    <Slider
+                        value={props.minVotes}
+                        onChange={(e, newValue) => handleSliderChange(e, newValue, 'minVotes')}
+                        min={0}
+                        max={500}
+                        step={10}
+                        valueLabelDisplay="auto"
+                    />
 
-                <Typography variant="body1" gutterBottom>
-                    Minimum User Votes
-                </Typography>
-                <Slider
-                    value={props.minVotes}
-                    onChange={(e, newValue) => handleSliderChange(e, newValue, 'minVotes')}
-                    min={0}
-                    max={500}
-                    step={10}
-                    valueLabelDisplay="auto"
-                    sx={{ ...formControl }}
-                />
+                    {/* Release Date From */}
+                    <FormControl fullWidth variant="outlined" size="small">
+                        <TextField
+                            id="release-date-from"
+                            label="Release Date From"
+                            type="date"
+                            defaultValue=""
+                            onChange={(e) => handleChange(e, 'releaseDateFrom', e.target.value)}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </FormControl>
 
+                    {/* Release Date To */}
+                    <FormControl fullWidth variant="outlined" size="small">
+                        <TextField
+                            id="release-date-to"
+                            label="Release Date To"
+                            type="date"
+                            defaultValue=""
+                            onChange={(e) => handleChange(e, 'releaseDateTo', e.target.value)}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </FormControl>
 
-                <TextField
-                    id="release-date-from"
-                    label="From"
-                    type="date"
-                    defaultValue=""
-                    onChange={(e) => handleChange(e, 'releaseDateFrom', e.target.value)}
-                    sx={{ ...formControl }}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-                <TextField
-                    id="release-date-to"
-                    label="To"
-                    type="date"
-                    defaultValue=""
-                    onChange={(e) => handleChange(e, 'releaseDateTo', e.target.value)}
-                    sx={{ ...formControl }}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                />
-
-                <FormControl sx={{ ...formControl }}>
-                    <InputLabel id="language-label">Language</InputLabel>
-                    <Select
-                        labelId="language-label"
-                        id="language-select"
-                        defaultValue=""
-                        value={props.language}
-                        onChange={(e) => handleChange(e, 'language', e.target.value)}
-                    >
-                        <MenuItem value={''}>None Selected</MenuItem>
-                        <MenuItem value={'en'}>English</MenuItem>
-                        <MenuItem value={'es'}>Spanish</MenuItem>
-                        <MenuItem value={'fr'}>French</MenuItem>
-                        <MenuItem value={'de'}>German</MenuItem>
-                        <MenuItem value={'zh'}>Chinese</MenuItem>
-                        <MenuItem value={'hi'}>Hindi</MenuItem>
-                        <MenuItem value={'ja'}>Japanese</MenuItem>
-                        <MenuItem value={'ru'}>Russian</MenuItem>
-                        <MenuItem value={'ar'}>Arabic</MenuItem>
-                        <MenuItem value={'pt'}>Portuguese</MenuItem>
-                        <MenuItem value={'it'}>Italian</MenuItem>
-                    </Select>
-                </FormControl>
-
-            </CardContent>
-        </Card>
+                    {/* Language Filter */}
+                    <FormControl fullWidth variant="outlined" size="small">
+                        <InputLabel id="language-label">Language</InputLabel>
+                        <Select
+                            labelId="language-label"
+                            id="language-select"
+                            value={props.language}
+                            onChange={(e) => handleChange(e, 'language', e.target.value)}
+                            label="Language"
+                        >
+                            <MenuItem value={''}>None Selected</MenuItem>
+                            <MenuItem value={'en'}>English</MenuItem>
+                            <MenuItem value={'es'}>Spanish</MenuItem>
+                            <MenuItem value={'fr'}>French</MenuItem>
+                            <MenuItem value={'de'}>German</MenuItem>
+                            <MenuItem value={'zh'}>Chinese</MenuItem>
+                            <MenuItem value={'hi'}>Hindi</MenuItem>
+                            <MenuItem value={'ja'}>Japanese</MenuItem>
+                            <MenuItem value={'ru'}>Russian</MenuItem>
+                            <MenuItem value={'ar'}>Arabic</MenuItem>
+                            <MenuItem value={'pt'}>Portuguese</MenuItem>
+                            <MenuItem value={'it'}>Italian</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Stack>
+            </AccordionDetails>
+        </Accordion>
     );
 }
