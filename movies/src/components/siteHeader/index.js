@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import SignInButton from '../SignInButton';
+import { signOut } from "firebase/auth";
+import { auth } from '../../firebase';
+import { AuthContext } from '../../contexts/authContext';
+
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -22,6 +27,7 @@ const SiteHeader = ({ history }) => {
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
     const navigate = useNavigate();
+    const { currentUser } = useContext(AuthContext); 
 
     const menuOptions = [
         { label: "Home", path: "/" },
@@ -39,6 +45,15 @@ const SiteHeader = ({ history }) => {
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            console.log("User signed out");
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
     };
 
     return (
@@ -98,6 +113,18 @@ const SiteHeader = ({ history }) => {
                                     {opt.label}
                                 </Button>
                             ))}
+                            {currentUser ? (
+                                <>
+                                    <Typography variant="h6" sx={{ marginRight: 2 }}>
+                                        Hello, {currentUser.displayName}
+                                    </Typography>
+                                    <Button color="inherit" onClick={handleLogout}>
+                                        Sign Out
+                                    </Button>
+                                </>
+                            ) : (
+                                <SignInButton />
+                            )}
                         </>
                     )}
                 </Toolbar>

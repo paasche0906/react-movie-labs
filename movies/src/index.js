@@ -20,6 +20,7 @@ import MovieVideoPage from "./pages/MovieVideoPage";
 import MovieCreditsPage from "./pages/MovieCreditsPage";
 import PersonDetailsPage from "./pages/PersonDetailsPage";
 import WatchlistMoviesPage from "./pages/watchlistMoviesPage";
+import AuthContextProvider from "./contexts/authContext";
 
 
 const queryClient = new QueryClient({
@@ -35,30 +36,32 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <SiteHeader />
-        <MoviesContextProvider>
-          <Routes>
-            <Route path="/reviews/:id" element={<MovieReviewPage />} />
-            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/movies/watchlists" element={<WatchlistMoviesPage />} />
-            <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
-            <Route path="/movie/:id/recommendations" element={<RecommendationsPage />} />
-            <Route path="/movies/popular" element={<PopularMoviesPage />} />
-            <Route path="/movies/top_rated" element={<TopRatedMovies />} />
-            <Route path="/movie/:id/similar" element={< SimilarMoviesPage />} />
-            <Route path="/movie/:id/videos" element={< MovieVideoPage />} />
-            <Route path="/movie/:id/credits" element={< MovieCreditsPage />} />
-            <Route path="/person/:personId" element={<PersonDetailsPage />} />
-          </Routes>
-        </MoviesContextProvider>
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <AuthContextProvider>
+        <BrowserRouter>
+          <SiteHeader />
+          <MoviesContextProvider>
+            <Routes>
+              <Route path="/reviews/:id" element={<MovieReviewPage />} />
+              <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+              <Route path="/movies/watchlists" element={<WatchlistMoviesPage />} />
+              <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+              <Route path="/movies/trending/today" element={<TrendingTodayPage />} />
+              <Route path="/movie/:id/recommendations" element={<RecommendationsPage />} />
+              <Route path="/movies/popular" element={<PopularMoviesPage />} />
+              <Route path="/movies/top_rated" element={<TopRatedMovies />} />
+              <Route path="/movie/:id/similar" element={< SimilarMoviesPage />} />
+              <Route path="/movie/:id/videos" element={< MovieVideoPage />} />
+              <Route path="/movie/:id/credits" element={< MovieCreditsPage />} />
+              <Route path="/person/:personId" element={<PersonDetailsPage />} />
+            </Routes>
+          </MoviesContextProvider>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </AuthContextProvider>
     </QueryClientProvider>
   );
 };

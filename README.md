@@ -44,3 +44,4 @@ e.g.
 Itemize the technologies/techniques you researched independently and adopted in your project, 
 i.e. aspects not covered in the lectures/labs. Include the source code filenames that illustrate these 
 (we do not require code excerpts) and provide references to the online resources that helped you (articles/blogs).
+https://www.bing.com/videos/riverview/relatedvideo?q=firebase%E6%95%99%E5%AD%A6&mid=9FEB7E829F578CBBD0CB9FEB7E829F578CBBD0CB&ajaxhist=0
