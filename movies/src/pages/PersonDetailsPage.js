@@ -5,7 +5,7 @@ import { getPeopleDetails, getMovieCredits, getExternalId } from '../api/tmdb-ap
 import Spinner from '../components/spinner';
 import InstagramIcon from '../images/ins icon.png';
 import TikTokIcon from '../images/tiktok icon.png';
-
+import '../css/PersonDetailsPage.css';
 
 const PersonDetailsPage = () => {
     const { personId } = useParams();
@@ -34,26 +34,30 @@ const PersonDetailsPage = () => {
 
     return (
         <div className="person-details-container">
-            <h1>{personDetails.name}</h1>
-            <img src={`https://image.tmdb.org/t/p/w300${personDetails.profile_path}`} alt={personDetails.name} />
-            <h2>Biography</h2>
-            <p>{personDetails.biography || "No profile available."}</p>
+            <div className="person-header">
+                <img className="profile-img" src={`https://image.tmdb.org/t/p/w300${personDetails.profile_path}`} alt={personDetails.name} />
+                <div className="header-info">
+                    <h1 className="person-name">{personDetails.name}</h1>
+                    <div className="social-media-links">
+                        {externalIds?.instagram_id && (
+                            <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target="_blank" rel="noopener noreferrer">
+                                <img src={InstagramIcon} alt="Instagram" className="social-icon" />
+                            </a>
+                        )}
+                        {externalIds?.tiktok_id && (
+                            <a href={`https://www.tiktok.com/@${externalIds.tiktok_id}`} target="_blank" rel="noopener noreferrer">
+                                <img src={TikTokIcon} alt="TikTok" className="social-icon" />
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            <h2 className="section-title">Biography</h2>
+            <p className="biography-text">{personDetails.biography || "No biography available."}</p>
 
             <div className="personal-info">
-                <h2>Personal Info</h2>
-                <div className="social-media-links" style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '10px' }}>
-                    {externalIds?.instagram_id && (
-                        <a href={`https://www.instagram.com/${externalIds.instagram_id}`} target="_blank" rel="noopener noreferrer">
-                            <img src={InstagramIcon} alt="Instagram" style={{ width: '30px', height: '30px' }} />
-                        </a>
-                    )}
-                    {externalIds?.tiktok_id && (
-                        <a href={`https://www.tiktok.com/@${externalIds.tiktok_id}`} target="_blank" rel="noopener noreferrer">
-                            <img src={TikTokIcon} alt="TikTok" style={{ width: '30px', height: '30px' }} />
-                        </a>
-                    )}
-                </div>
-
+                <h2 className="section-title">Personal Info</h2>
                 <p><strong>Known For: </strong>{personDetails.known_for_department}</p>
                 <p><strong>Gender: </strong>{personDetails.gender === 1 ? "Female" : "Male"}</p>
                 <p><strong>Birthday: </strong>{personDetails.birthday} ({getAge(personDetails.birthday)} years old)</p>
@@ -66,24 +70,23 @@ const PersonDetailsPage = () => {
                 </ul>
             </div>
 
-            <h2>Known For</h2>
-            <div>
+            <h2 className="section-title">Known For</h2>
+            <div className="known-for">
                 {movieCredits.cast.slice(0, 5).map((movie) => (
-                    <div key={movie.id}>
+                    <div key={movie.id} className="movie-card">
                         <h3>
-                            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                            <Link to={`/movies/${movie.id}`} className="movie-title-link">{movie.title}</Link>
                         </h3>
                         <p>Role: {movie.character}</p>
                     </div>
                 ))}
             </div>
 
-            <h2>Acting</h2>
-            <ul>
+            <h2 className="section-title">Acting</h2>
+            <ul className="acting-list">
                 {movieCredits.cast.map((movie) => (
-                    <li key={movie.id}>
-                        {movie.release_date?.split('-')[0]} -
-                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link> as {movie.character}
+                    <li key={movie.id} className="acting-item">
+                        {movie.release_date?.split('-')[0]} - <Link to={`/movies/${movie.id}`} className="movie-title-link">{movie.title}</Link> as {movie.character}
                     </li>
                 ))}
             </ul>
