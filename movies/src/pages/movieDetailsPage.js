@@ -6,6 +6,7 @@ import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import { Link } from "react-router-dom";
+import TopBilledCast from "../components/TopBilledCast";
 
 const MoviePage = () => {
     const { id } = useParams();
@@ -28,6 +29,8 @@ const MoviePage = () => {
                 <>
                     <PageTemplate movie={movie}>
                         <MovieDetails movie={movie} />
+                        <TopBilledCast />
+
                         <Link to={`/movie/${id}/credits`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#a213v2' }}>
                             View Credits
                         </Link>
