@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import { Link } from "react-router-dom";
 import TopBilledCast from "../components/TopBilledCast";
+import MovieVideos from "../components/MovieVideos";
 
 const MoviePage = () => {
     const { id } = useParams();
@@ -32,19 +33,26 @@ const MoviePage = () => {
                         <TopBilledCast />
                         <Link
                             to={`/movie/${id}/credits`}
-                            className="view-full-cast-button" 
+                            className="view-full-cast-button"
                         >
                             View Full Cast & Crew →
                         </Link>
-                        <Link to={`/movie/${id}/recommendations`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#3f51b5' }}>
-                            View Recommendations
+                        <MovieVideos />
+                        <Link
+                            to={`/movie/${id}/recommendations`}
+                            className="view-full-cast-button" // Using the existing class to provide consistency
+                        >
+                            View Recommendations →
                         </Link>
-                        <Link to={`/movie/${id}/similar`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#388e3c', textDecoration: 'underline' }}>
-                            View Similar Movies
+
+                        <Link
+                            to={`/movie/${id}/similar`}
+                            className="view-full-cast-button" // Using the existing class for a consistent button style
+                        >
+                            View Similar Movies →
                         </Link>
-                        <Link to={`/movie/${id}/videos`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#213552', textDecoration: 'underline' }}>
-                            View Videos
-                        </Link>
+
+
                     </PageTemplate>
                 </>
             ) : (

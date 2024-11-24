@@ -1,0 +1,71 @@
+.movie-videos-container {
+    margin-top: 20px;
+}
+
+.media-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.media-header h3 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.view-all-button {
+    color: #1e88e5;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.tab {
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+}
+
+.videos-section {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.video-card {
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+.video-thumbnail {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.video-info {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
