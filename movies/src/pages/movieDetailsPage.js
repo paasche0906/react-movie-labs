@@ -30,9 +30,11 @@ const MoviePage = () => {
                     <PageTemplate movie={movie}>
                         <MovieDetails movie={movie} />
                         <TopBilledCast />
-
-                        <Link to={`/movie/${id}/credits`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#a213v2' }}>
-                            View Credits
+                        <Link
+                            to={`/movie/${id}/credits`}
+                            className="view-full-cast-button" 
+                        >
+                            View Full Cast & Crew →
                         </Link>
                         <Link to={`/movie/${id}/recommendations`} style={{ display: 'block', marginTop: '20px', fontSize: '18px', color: '#3f51b5' }}>
                             View Recommendations

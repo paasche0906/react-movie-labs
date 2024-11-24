@@ -2,10 +2,12 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { getCredits } from '../../api/tmdb-api';
 import '../../css/TopBilledCast.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const TopBilledCast = () => {
     const { id } = useParams();
+    const navigate = useNavigate(); // Add useNavigate to handle navigation
+
     const { data, error, isLoading, isError } = useQuery(['credits', id], () => getCredits(id));
 
     if (isLoading) {
@@ -18,6 +20,7 @@ const TopBilledCast = () => {
 
     const { cast } = data;
 
+    // Limit to the top 6 billed cast members
     const topBilledCast = cast.slice(0, 6);
 
     return (
@@ -25,7 +28,12 @@ const TopBilledCast = () => {
             <h3>Top Billed Cast</h3>
             <div className="cast-grid">
                 {topBilledCast.map(member => (
-                    <div key={member.cast_id} className="cast-card">
+                    <div
+                        key={member.cast_id}
+                        className="cast-card"
+                        onClick={() => navigate(`/person/${member.id}`)}
+                        style={{ cursor: 'pointer' }} 
+                    >
                         <img
                             className="cast-image"
                             src={`https://image.tmdb.org/t/p/w200${member.profile_path}`}
