@@ -42,7 +42,7 @@ Depending on your environment, you might need to install some tools globally, su
 
 ## API endpoints.
 
-# Static endpoints 
+### Static endpoints 
 + Retrieves a list of upcoming movies - UpcomingMoviesPage
 + Lists movies trending today - TrendingTodayPage
 + Lists popular movies - PopularMoviesPage
@@ -50,7 +50,7 @@ Depending on your environment, you might need to install some tools globally, su
 + Lists all movies marked as favorite by the user - FavoriteMoviesPage
 + Lists all movies added to the user's watchlist - WatchlistMoviesPage
 
-# Parameterised endpoint
+### Parameterised endpoint
 + Adds a review for a particular movie by ID  - MovieReviewPage
 + Fetches detailed information about a specific movie by ID - MoviePage
 + Lists recommended movies based on the selected movie - RecommendationsPage
@@ -77,7 +77,7 @@ Depending on your environment, you might need to install some tools globally, su
 + /movie/:id/credits - displays cast and crew information of a movie.
 + /person/:personId - displays detailed information about an individual (actor, director, etc.).
 
-# Protected Routes:
+### Protected Routes:
 /movies/favorites: Requires user authentication to view the list of favorite movies. 
 /movies/watchlists: Requires user authentication to view the watchlist. 
 /reviews/form: Requires user authentication to add a movie review. 
@@ -85,28 +85,28 @@ Depending on your environment, you might need to install some tools globally, su
 ## Independent learning (If relevant).
 
 1. Third-party authentication with Firebase(Google)
-# The included files are: 
+### The included files are: 
 - components/SignInButton/index.js
 - components/siteHeader/index.js
 - contexts/authContext.js
 - firebase.js
 - index.js
-# Reference Video Link:
+### Reference Video Link:
 https://www.youtube.com/watch?v=fgdpvwEWJ9M
-# Implementation steps:
+### Implementation steps:
 (1) Add the web application to the Firebase console and get the Firebase configuration.
 (2) Install the Firebase SDK and initialise it in your project.
 (3) Create a login component that allows users to authenticate with Firebase.
 (4) Use React Context to manage user state, making login information available throughout the application.
 
 2. Pagination
-# The included files are: 
+### The included files are: 
 - api/tmdb-api.js
 - components/pagination/index.js
 - pages
-# Reference Blog Link:
+### Reference Blog Link:
 https://blog.csdn.net/xin915/article/details/122369777
-# Implementation steps:
+### Implementation steps:
 (1) Prepare the back-end API to support paging.
 (2) Creating a function to get paging data.
 (3) Creating a Pager Component.
