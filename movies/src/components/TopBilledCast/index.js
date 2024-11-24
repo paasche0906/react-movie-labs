@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const TopBilledCast = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Add useNavigate to handle navigation
+    const navigate = useNavigate();
 
     const { data, error, isLoading, isError } = useQuery(['credits', id], () => getCredits(id));
 

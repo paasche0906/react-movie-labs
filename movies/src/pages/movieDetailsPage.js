@@ -40,14 +40,14 @@ const MoviePage = () => {
                         <MovieVideos />
                         <Link
                             to={`/movie/${id}/recommendations`}
-                            className="view-full-cast-button" // Using the existing class to provide consistency
+                            className="view-full-cast-button" 
                         >
                             View Recommendations →
                         </Link>
 
                         <Link
                             to={`/movie/${id}/similar`}
-                            className="view-full-cast-button" // Using the existing class for a consistent button style
+                            className="view-full-cast-button" 
                         >
                             View Similar Movies →
                         </Link>
